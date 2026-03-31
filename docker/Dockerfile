@@ -29,5 +29,7 @@ RUN git clone https://gh-proxy.org/https://github.com/broadinstitute/infercnv &&
 
 ENV PATH=${PATH}:/infercnv/scripts
 
+RUN R -e 'install.packages("fastCNV", repos = "https://zaoqu-liu.r-universe.dev")'
+
 CMD R inferCNV.R --help
 
