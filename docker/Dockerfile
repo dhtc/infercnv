@@ -1,6 +1,14 @@
 # Docker file for inferCNV
 FROM bioconductor/bioconductor_docker@sha256:3ed828b0c754837dd55bcae8986f73988a2b8c1eff0855b7cbbf92efbddaa42f
 
+RUN printf "# 默认注释了源码镜像以提高 apt update 速度\n\
+deb http://mirrors4.tuna.tsinghua.edu.cn/ubuntu/ noble main restricted universe multiverse\n\
+deb http://mirrors4.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted universe multiverse\n\
+deb http://mirrors4.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse\n\
+deb http://security.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse\n" > /etc/apt/sources.list \
+    && apt-get update
+
+
 RUN apt-get update && apt-get -y install curl libssl-dev libcurl4-openssl-dev \
                                         libxml2-dev git python3 jags \
                                         r-cran-rjags time && \
