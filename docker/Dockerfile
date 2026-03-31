@@ -1,5 +1,5 @@
 # Docker file for inferCNV
-FROM bioconductor/bioconductor_docker:devel
+FROM bioconductor/bioconductor_docker@sha256:3ed828b0c754837dd55bcae8986f73988a2b8c1eff0855b7cbbf92efbddaa42f
 
 LABEL org.label-schema.license="BSD-3-Clause" \
       org.label-schema.vendor="Broad Institute" \
@@ -12,10 +12,10 @@ RUN apt-get update && apt-get -y install curl libssl-dev libcurl4-openssl-dev \
                                           /tmp/* /var/lib/apt/lists/*
 
 # Install R and Bioconductor packages
-RUN echo "options(repos = c(CRAN = 'https://cran.rstudio.com'))" >.Rprofile
+RUN echo "options(repos = c(CRAN='https://mirrors.tuna.tsinghua.edu.cn/CRAN/', BioC_mirror='https://mirrors.tuna.tsinghua.edu.cn/bioconductor'))" >.Rprofile
 RUN R -e "BiocManager::install('infercnv')"
 #RUN R -e "install.packages(c('cluster', 'Seurat', 'parallelDist', 'optparse'), repos = 'http://cran.us.r-project.org')"
-RUN R -e "install.packages(c('cluster', 'Seurat', 'optparse', 'igraph', 'reshape2'), repos = 'http://cran.us.r-project.org')"
+RUN R -e "install.packages(c('cluster', 'Seurat', 'optparse', 'igraph', 'reshape2'))"
 #RUN R -e "install.packages('phyclust', repos = 'http://cran.us.r-project.org')"
 
 # RUN pip3 install numpy igraph pandas leidenalg
@@ -23,11 +23,11 @@ RUN R -e "install.packages(c('cluster', 'Seurat', 'optparse', 'igraph', 'reshape
 
 # Checkout and install infercnv
 # update to version bump commit
-RUN git clone https://github.com/broadinstitute/infercnv && cd infercnv && \
-      git checkout master && git checkout 1b46b48303bac4a882bcb758e78fcf7f832fdefb && \
+RUN git clone https://gh-proxy.org/https://github.com/broadinstitute/infercnv && cd infercnv && \
+      git checkout master && \
       R CMD INSTALL . 
 
 ENV PATH=${PATH}:/infercnv/scripts
 
-CMD inferCNV.R --help
+CMD R inferCNV.R --help
 
