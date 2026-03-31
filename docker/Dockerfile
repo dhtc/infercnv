@@ -22,7 +22,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
                                           
 # Install R and Bioconductor packages
 RUN echo "options(repos = c(CRAN='https://mirrors.tuna.tsinghua.edu.cn/CRAN/', BioC_mirror='https://mirrors.tuna.tsinghua.edu.cn/bioconductor'))" >.Rprofile
-RUN R -e "BiocManager::install(c('infercnv', 'remotes', 'qs', 'arrow'))"
+RUN R -e "BiocManager::install(c('infercnv', 'remotes', 'arrow'))"
+RUN R -e 'remotes::install_cran("qs", type = "source", configure.args = "--with-simd=AVX2")'
 
 RUN set -e \
     && R -e "install.packages(c('Seurat','BPCells', 'presto', 'glmGamPoi'))" \
