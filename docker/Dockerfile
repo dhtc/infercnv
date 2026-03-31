@@ -15,9 +15,6 @@ RUN set -e \
     && R -e "install.packages(c('Seurat','BPCells', 'presto', 'glmGamPoi'))" \
     && R -e "remotes::install_github('satijalab/seurat-wrappers', quiet = TRUE)" \
     && R -e "remotes::install_github('mojaveazure/seurat-disk')" \
-# Signac
-    && R -e "install.packages('Signac')" \
-# Others
     && R -e "install.packages(c('bit64', \
                                 'sleepwalk', \
                                 'scBio', \
@@ -26,11 +23,8 @@ RUN set -e \
     && R -e "BiocManager::install(c('ggbio', 'scry','glmGamPoi'))" \
 # Wrapper (LIGER, Harmony, conos, CoGAPS, GLM-PCA, fastMNN (batchelor), ALRA (rsvd), Nebulosa, CIPR, miQC, tricycle)
     && R -e "install.packages(c('glmpca','harmony','rliger','rsvd'))" \
-    && R -e "BiocManager::install(c('batchelor', 'CoGAPS', 'Nebulosa', 'tricycle'))" \
-    && R -e "remotes::install_github('kharchenkolab/conos')" \
-    && R -e "remotes::install_github('atakanekiz/CIPR-Package')" \
-    && R -e "remotes::install_github('greenelab/miQC')" \
-    
+    && R -e "BiocManager::install(c('batchelor', 'Nebulosa'))" 
+
 RUN R -e "install.packages(c('cluster', 'optparse', 'igraph', 'reshape2'))"
 
 #RUN git clone https://gh-proxy.org/https://github.com/broadinstitute/infercnv && cd infercnv && \
