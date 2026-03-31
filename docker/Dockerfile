@@ -14,6 +14,13 @@ RUN apt-get update && apt-get -y install curl libssl-dev libcurl4-openssl-dev \
                                         r-cran-rjags time && \
                       apt-get clean && rm -rf /var/tmp/* \
                                           /tmp/* /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libcurl4-openssl-dev \
+    libssl-dev \
+    libxml2-dev \
+    cmake \
+    libarrow-dev \
+    && rm -rf /var/lib/apt/lists/*
                                           
 # Install R and Bioconductor packages
 RUN echo "options(repos = c(CRAN='https://mirrors.tuna.tsinghua.edu.cn/CRAN/', BioC_mirror='https://mirrors.tuna.tsinghua.edu.cn/bioconductor'))" >.Rprofile
