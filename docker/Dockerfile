@@ -7,7 +7,7 @@ deb http://mirrors4.tuna.tsinghua.edu.cn/ubuntu/ noble-updates main restricted u
 deb http://mirrors4.tuna.tsinghua.edu.cn/ubuntu/ noble-backports main restricted universe multiverse\n\
 deb http://security.ubuntu.com/ubuntu/ noble-security main restricted universe multiverse\n" > /etc/apt/sources.list \
     && apt-get update && apt-get -y install curl libssl-dev libcurl4-openssl-dev \
-                                        libxml2-dev git python3 jags libssl-dev libxml2-dev cmake\
+                                        libxml2-dev git python3 jags libssl-dev libxml2-dev cmake python3-pip python3-dev\
                                         r-cran-rjags time && \
                       apt-get clean && rm -rf /var/tmp/* \
                                           /tmp/* /var/lib/apt/lists/*
@@ -26,4 +26,6 @@ RUN R -e "install.packages(c('cluster', 'optparse', 'igraph', 'reshape2'))"
 RUN R -e 'remotes::install_github("must-bioinfo/fastCNV")'
 #RUN R -e 'install.packages("fastCNV", repos = "https://zaoqu-liu.r-universe.dev")'
 
-CMD ["/init"]
+RUN R -e "install.packages('IRkernel')" && R -e "IRkernel::installspec(user = FALSE)"
+
+RUN pip3 install --no-cache-dir jupyterlab
