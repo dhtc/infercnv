@@ -24,6 +24,7 @@ RUN R -e "install.packages('IRkernel')" && R -e "IRkernel::installspec(user = FA
 RUN R -e "BiocManager::install(c('infercnv', 'remotes'))"
 RUN R -e "remotes::install_github('qsbase/qs', configure_args = '--with-simd=AVX2', force = TRUE, quiet = TRUE)"
 RUN R -e "install.packages(c('Seurat'))"
+RUN R -e "remotes::install_github('satijalab/seurat-wrappers')"
 RUN R -e "install.packages(c('cluster', 'optparse', 'igraph', 'reshape2'))"
 #RUN git clone https://gh-proxy.org/https://github.com/broadinstitute/infercnv && cd infercnv && \
 #      git checkout master && \
