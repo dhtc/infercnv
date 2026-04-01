@@ -14,6 +14,11 @@ deb http://security.ubuntu.com/ubuntu/ noble-security main restricted universe m
                                           
 # Install R and Bioconductor packages
 RUN echo "options(repos = c(CRAN='https://mirrors.aliyun.com/CRAN/', BioC_mirror='https://mirrors.westlake.edu.cn/bioconductor'))" >.Rprofile
+
+RUN pip3 install --no-cache-dir jupyterlab
+
+RUN R -e "install.packages('IRkernel')" && R -e "IRkernel::installspec(user = FALSE)"
+
 RUN R -e "BiocManager::install(c('infercnv', 'remotes'))"
 RUN R -e "remotes::install_github('qsbase/qs', configure_args = '--with-simd=AVX2', force = TRUE, quiet = TRUE)"
 RUN R -e "install.packages(c('Seurat'))"
@@ -26,6 +31,6 @@ RUN R -e "install.packages(c('cluster', 'optparse', 'igraph', 'reshape2'))"
 RUN R -e 'remotes::install_github("must-bioinfo/fastCNV")'
 #RUN R -e 'install.packages("fastCNV", repos = "https://zaoqu-liu.r-universe.dev")'
 
-RUN R -e "install.packages('IRkernel')" && R -e "IRkernel::installspec(user = FALSE)"
 
-RUN pip3 install --no-cache-dir jupyterlab
+
+
