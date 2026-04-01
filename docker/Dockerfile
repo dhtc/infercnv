@@ -15,6 +15,7 @@ deb http://security.ubuntu.com/ubuntu/ noble-security main restricted universe m
 # Install R and Bioconductor packages
 RUN echo "options(repos = c(CRAN='https://mirrors.aliyun.com/CRAN/', BioC_mirror='https://mirrors.westlake.edu.cn/bioconductor'))" >.Rprofile
 
+RUN which pip
 RUN pip install  -i https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple jupyterlab
 
 RUN R -e "install.packages('IRkernel')" && R -e "IRkernel::installspec(user = FALSE)"
