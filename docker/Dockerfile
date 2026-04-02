@@ -35,5 +35,7 @@ RUN R -e 'remotes::install_github("must-bioinfo/fastCNV")'
 #RUN R -e 'install.packages("fastCNV", repos = "https://zaoqu-liu.r-universe.dev")'
 
 RUN R -e 'remotes::install_github("XuegongLab/HGC")'
+RUN R -e 'remotes::install_github("bnprks/BPCells/r")'
+RUN R -e 'remotes::install_github("immunogenomics/presto")'
 
 
